@@ -38,8 +38,8 @@ const userApiSlice = apiSlice.injectEndpoints({
             }) 
         }),
         updateUserByAdmin : builder.mutation({
-           query : ({id,formData})=>({
-            url : `${USER_URL}/update/${id}`,
+           query : (formData)=>({
+            url : `${USER_URL}/${formData.userId}`,
             method : "PUT",
             body : formData
            })
@@ -53,7 +53,7 @@ const userApiSlice = apiSlice.injectEndpoints({
         }),
         deleteUser : builder.mutation({
             query : (id)=>({
-                url : `${USER_URL}/delete/${id}`,
+                url : `${USER_URL}/${id}`,
                 method : "DELETE",
             })
         })

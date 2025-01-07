@@ -1,19 +1,14 @@
+import daisyui from 'daisyui';
+import { Flowbite } from 'flowbite-react';
 
-import { Flowbite } from 'flowbite-react/tailwind'
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    Flowbite
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        primary: "#4F1131",
-        secondary: "#FFA903",
-        textClr: "#21283F",
-        lightBg: "#FBF9F2"
-      }
-    },
+    extend: {},
   },
-  plugins: [Flowbite],
+  plugins: [Flowbite,daisyui],
 }

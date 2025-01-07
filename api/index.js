@@ -16,10 +16,17 @@ import userRoute from "./routes/userRoute.js";
 import flightRoute from "./routes/flightRoute.js"
 import categoryRoute from "./routes/categoryRoute.js"
 import packageRoute from "./routes/packageRoute.js"
+import uploadRoute from "./routes/uploadRoute.js"
+import path from "path";
 app.use("/api/user", userRoute)
 app.use("/api/flight", flightRoute)
 app.use("/api/category", categoryRoute)
 app.use("/api/package", packageRoute)
+app.use("/api/upload", uploadRoute)
+
+
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
 app.listen(PORT, ()=>{
     dbConnect()
     console.log(`server is running on port :${PORT}`);

@@ -37,7 +37,7 @@ required : true
         required : true
     },
     availableSeats : {
-        type : String,
+        type : Number,
         required : true
     },
     status : {
