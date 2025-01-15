@@ -68,25 +68,25 @@ export const getFligthById = asyncHandler(async(req,res)=>{
 
 export const updateFlight = asyncHandler(async(req,res)=>{
     try {
-        const {departure, arrival, departureTime, arrivalTime, price , date, airline, flightNumber, seats, availableSeats, status, image} = req.body;
-        switch (true){
-            case !departure:
-                case !arrival:
-                    case !departureTime:
-                        case !arrivalTime:
-                            case !price:
-                                case !date:
-                                    case !airline:
-                                        case !flightNumber:
-                                            case !seats:
-                                                case !availableSeats:
-                                                    case !status:
-                                                        case !image:
-                                                            res.status(4000)
-                                                            throw new Error("Please fill all the fields")
-                                                            default: 
-                                                            break;
-        }
+        const {departure, arrival, departureTime, arrivalTime, price , date, airline, flightNumber, seats, availableSeats, status, image} = req.fields;
+        // switch (true){
+        //     case !departure:
+        //         case !arrival:
+        //             case !departureTime:
+        //                 case !arrivalTime:
+        //                     case !price:
+        //                         case !date:
+        //                             case !airline:
+        //                                 case !flightNumber:
+        //                                     case !seats:
+        //                                         case !availableSeats:
+        //                                             case !status:
+        //                                                 case !image:
+        //                                                     res.status(4000)
+        //                                                     throw new Error("Please fill all the fields")
+        //                                                     default: 
+        //                                                     break;
+        // }
         const flight = await Flight.findById(req.params.id)
         if (flight){
             flight.departure = departure || flight.departure
@@ -133,3 +133,22 @@ export const deleteFlight = asyncHandler(async(req,res)=>{
     }
 })
 
+
+
+export const searchFlight = asyncHandler(async(req,res)=>{
+    try {
+        const {departure,arrival,departureTime,arrivalTime} = req.body;
+        const flight = await Flight.find({departure:departure,arrival:arrival,departureTime:departureTime,arrivalTime:arrivalTime})
+        if (flight) {
+            res.status(200).json(flight)
+        }else{
+            res.status(400)
+            throw new Error("Flight not found")
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message : "Internal server error"})
+        
+    }
+})

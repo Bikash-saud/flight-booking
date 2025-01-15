@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Hero = () => {
   return (
@@ -13,7 +14,10 @@ const Hero = () => {
         Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
         quasi. In deleniti eaque aut repudiandae et a id nisi.
       </p>
+      <Link to="/package">
+      
       <button className="btn btn-primary">Book now</button>
+      </Link>
     </div>
   </div>
 </div>

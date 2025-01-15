@@ -49,7 +49,7 @@ export const getpackage = asyncHandler(async(req,res)=>{
     try {
         const packagek = await Package.findById(req.params.id)
         if (packagek) {
-            res.status(200).json({success : true, packagek})
+            res.status(200).json(packagek)
         }else{
             res.status(404)
             throw new Error("Package not found")
@@ -61,10 +61,21 @@ export const getpackage = asyncHandler(async(req,res)=>{
         
     }
 })
+export const fecthTopPackage = asyncHandler(async(req,res,next)=>{
+    try {
+      const product = await Package.find({}).sort({rating : -1}).limit(4)
+      res.json(product)
+    } catch (error) {
+      console.log(error);
+      res.status(400).json(error.message)
+      
+    }
+    
+    })
 
 export const updatePackage = asyncHandler(async(req,res)=>{
     try {
-        const {name, description, price , image, location, status, ticketType, date, time} = req.body;
+        const {name, description, price , image, location, status, ticketType, date, time} = req.fields;
         switch(true){
             case !name:
                 case !description:
@@ -125,7 +136,7 @@ export const  addPackageReview = asyncHandler(async(req,res)=>{
         const {rating, comment} = req.body;
         const packagek = await Package.findById(req.params.id)
         if (packagek) {
-            const alreadyReviewed = await packagek.review.find((r)=> r.user.toString() === req.user._id.toString())
+            const alreadyReviewed =  packagek.review.find((r)=> r.user.toString() === req.user._id.toString())
             if (alreadyReviewed) {
                 res.status(400)
                 throw new Error("Product already reviewed")
@@ -142,7 +153,7 @@ export const  addPackageReview = asyncHandler(async(req,res)=>{
             packagek.numReviews = packagek.review.length
             packagek.rating = packagek.review.reduce((acc,item)=>item.rating + acc, 0) / packagek.review.length
             await packagek.save()
-            res.status(200).json({success : true, packagek})
+            res.status(200).json(packagek)
         }else{
             res.status(404).json({success : false, message : "Package not found"})
         }

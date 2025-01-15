@@ -1,6 +1,6 @@
 import React from 'react'
 import {useGetFlightByIdQuery} from "../../../redux/api/flightApiSlice"
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 const FlightDetail = () => {
     const { id: flightId } = useParams()
     const {data} = useGetFlightByIdQuery(flightId)
@@ -60,7 +60,10 @@ const FlightDetail = () => {
                     </p>
                 </div>
                 <div className=" px-2 mt-9">
+                    <Link to="/addbooking">
+                    
                         <button className="btn btn-secondary">Book now</button>
+                    </Link>
                     </div>
             </div>
         </div>

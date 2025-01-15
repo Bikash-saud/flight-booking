@@ -133,8 +133,8 @@ const Navigation = () => {
               <li><Link to="/settings">Settings</Link></li>
               <li><Link to="/admin/dashboard">Dashboard</Link></li>
               <li><Link to="/admin/categorylist">create Category</Link></li>
-              <li><Link to="/admin/createproduct">Create product</Link></li>
-              <li><Link to="/admin/userlist">UserList</Link></li>
+              <li><Link to="/admin/addflight">Create Flight</Link></li>
+              <li><Link to="/admin/userlists">UserList</Link></li>
               <li><button onClick={logoutHandler}>Logout</button></li>
 
             </ul>

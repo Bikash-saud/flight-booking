@@ -14,6 +14,7 @@ const Profile = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [updateProfile, { isLoading: loadingUpdateProfile }] = useUpdateUserMutation()
+    
     const {userInfo} = useSelector((state)=>state.auth)
     useEffect(()=>{
         setEmail(userInfo.email),
@@ -97,10 +98,10 @@ const Profile = () => {
             </button>
 
             <Link
-              to="/user-orders"
+              to="/user-booking"
               className="bg-pink-600 text-white py-2 px-4 rounded hover:bg-pink-700"
             >
-              My Flights
+              My Bookings
             </Link>
           </div>
           {loadingUpdateProfile && <Loder />}

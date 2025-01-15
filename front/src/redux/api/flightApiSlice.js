@@ -23,15 +23,16 @@ const flightApiSlice = apiSlice.injectEndpoints({
             })
         }),
         updateFlight : builder.mutation({
-            query : (formData)=>({
-                url : `${FLIGHT_URL}/update/${formData.flightId}`,
+            query : ({flightId,formData})=>({
+                url : `${FLIGHT_URL}/${flightId}`,
                 method : "PUT",
                 body : formData
             })
         }),
         deleteFlight : builder.mutation({
-            query : (id)=>({
-                url :`${FLIGHT_URL}/delete/${id}`
+            query : (flightId)=>({
+                url :`${FLIGHT_URL}/${flightId}`,
+                method : "DELETE"
             })
         }),
         uploadImage : builder.mutation({
@@ -41,8 +42,15 @@ const flightApiSlice = apiSlice.injectEndpoints({
                 body : data
 
             })
+        }),
+        search : builder.mutation({
+            query : (data)=>({
+                url : `${FLIGHT_URL}/search`,
+                method : "POST",
+                body : data
+            })
         })
     })
 })
 
-export const {useUploadImageMutation,useCreateFlightMutation,useDeleteFlightMutation,useGetFlightByIdQuery,useGetFlightsQuery,useUpdateFlightMutation} = flightApiSlice
+export const {useUploadImageMutation,useCreateFlightMutation,useDeleteFlightMutation,useGetFlightByIdQuery,useGetFlightsQuery,useUpdateFlightMutation,useSearchMutation} = flightApiSlice

@@ -14,7 +14,7 @@ const bookingSchema = new mongoose.Schema({
     package : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "Package",
-        required : true
+      
     },
     bookingDate : {
         type : Date,
@@ -25,32 +25,34 @@ const bookingSchema = new mongoose.Schema({
         type : String,
         enum : ["pending", "completed", "cancelled"]
     },
-    passengers : [
-        {
             name : {type : String, required : true},
             age : {type : Number, required : true},
             gender : {type : String, required : true},
             seatNumber : {type : String, required : true},
-            meal : {type : String , required : true},
-            luggage : {type : String, required : true},
-            passport : {type : String, required : true },
-            address : {type : String, required : true},
+            meal : {type : String },
+            luggage : {type : String},
+            passport : {type : String},
+          
+                address : { type : String, required:true},
+                city : {type : String, required:true},
+                postalCode : {type:String, required:true},
+                country : {type : String, required:true},
+        
             phone : { type : String, required :true},
             email : {type : String, required : true},
 
-        }
-    ],
+    
     totalAmount :{
         type : Number,
-        required : true
+        // required : true
     },
     paymentMethod : {
         type : String,
-        required : true
+        // required : true
     },
    paymentStatus : {
     type : String,
-    required : true
+    // required : true
    },
    paymetDate : {
     type : Date,

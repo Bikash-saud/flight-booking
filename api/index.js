@@ -18,12 +18,13 @@ import categoryRoute from "./routes/categoryRoute.js"
 import packageRoute from "./routes/packageRoute.js"
 import uploadRoute from "./routes/uploadRoute.js"
 import path from "path";
+import bookingRoute from "./routes/bookingRoute.js"
 app.use("/api/user", userRoute)
 app.use("/api/flight", flightRoute)
 app.use("/api/category", categoryRoute)
 app.use("/api/package", packageRoute)
 app.use("/api/upload", uploadRoute)
-
+app.use("/api/booking", bookingRoute)
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname + "/uploads")));

@@ -26,7 +26,10 @@ const Flights = () => {
       <p>Airline : {f?.airline}</p>
       <p>Date : {f?.date}</p>
       <div className="card-actions">
+        <Link to="/addbooking">
+        
         <button className="btn btn-primary">Book Now</button>
+        </Link>
       </div>
       </div>
       </Link>
