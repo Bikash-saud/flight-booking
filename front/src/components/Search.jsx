@@ -1,35 +1,42 @@
-import React, { useState } from 'react';
-import { useSearchMutation } from '../redux/api/flightApiSlice';
-
+import React, { useEffect, useState } from 'react';
+import {useGetFlightsQuery,useRandomFlightQuery} from "../redux/api/flightApiSlice"
+import {setFilteredFlight,setFlightFiltered} from "../redux/features/search/searchSlice"
+import MovieCard from '../pages/admin/flight/Flightss';
+import { useDispatch, useSelector } from 'react-redux';
 const Search = () => {
-  const [departure, setDeparture] = useState('');
-  const [arrival, setArrival] = useState('');
-  const [departureTime, setDepartureTime] = useState('');
-  const [arrivalTime, setArrivalTime] = useState('');
-  // const [airline, setAirline] = useState('');
-  const [searchFlight, { data, error, isLoading }] = useSearchMutation();
-  console.log(data);
+ 
+  const dispatch = useDispatch()
+  const{data,isLoading,error} = useGetFlightsQuery()
+  const {data : randomflights} = useRandomFlightQuery()
+  const {searchFilter,filteredFlights} = useSelector(state=>state.flight)
+  useEffect(()=>{
+    dispatch(setFilteredFlight(data || []))
+  },[data, dispatch])
+  const handleSearch1 = async (e) => {
+    dispatch(setFlightFiltered({departure : e.target.value}))  
+    const filteredFlight = data.filter((flight) =>
+      flight.departure.toLowerCase().includes(e.target.value.toLowerCase())
+  );
+  dispatch(setFilteredFlight(filteredFlight))
   
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    try {
-      await searchFlight({ departure, arrival, departureTime, arrivalTime }).unwrap();
-    } catch (err) {
-      console.error('Failed to search flights: ', err);
-    }
   };
 
+  const handleSearch2 = async(e)=>{
+    dispatch(setFlightFiltered({arrival : e.target.value}))
+
+    const filteredFlight = data.filter((flight)=> flight.arrival.toLowerCase().includes(e.target.value.toLowerCase()))
+    dispatch(setFilteredFlight(filteredFlight()))
+  }
   return (
     <div className="max-w-screen-md gap-3 mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Search Flights</h2>
-      <form onSubmit={handleSearch} className=' flex justify-center items-center'>
+      <div className=' flex justify-center items-center'>
         <div className="mb-4 p-2">
           <label className="block text-gray-700">Departure:</label>
           <input
             type="text"
-            value={departure}
-            onChange={(e) => setDeparture(e.target.value)}
+            value={searchFilter.departure}
+            onChange={handleSearch1}
             className="w-full  border rounded-lg p-2 px-3"
           />
         </div>
@@ -37,12 +44,12 @@ const Search = () => {
           <label className="block text-gray-700">Arrival:</label>
           <input
             type="text"
-            value={arrival}
-            onChange={(e) => setArrival(e.target.value)}
+            value={searchFilter.arrival}
+            onChange={handleSearch2}
             className="w-full px-3 py-2 border rounded-lg"
           />
         </div>
-        <div className="mb-4 p-2">
+        {/* <div className="mb-4 p-2">
           <label className="block text-gray-700">Departure Date:</label>
           <input
             type="date"
@@ -59,27 +66,18 @@ const Search = () => {
             onChange={(e) => setArrivalTime(e.target.value)}
             className="w-full px-3 py-2 border rounded-lg"
           />
-        </div>
+        </div> */}
        
         <button type="submit" className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600">
           {isLoading ? 'Searching...' : 'Search'}
         </button>
-      </form>
+      </div>
       {error && <p className="text-red-500 mt-4">Error: {error.message}</p>}
-      {data && (
-        <div>
-          <h2>Flights Found:</h2>
-          <ul>
-            {data.map((flight) => (
-              <li key={flight.id}>
-                {flight.departure} → {flight.arrival} ({flight.departureTime} - {flight.arrivalTime})
-              </li>
+      {filteredFlights?.map((flight) => (
+              <MovieCard key={flight._id} flight={flight}/>
             ))}
-          </ul>
-        </div>
-      )}
+
     </div>
   );
 };
-
 export default Search;

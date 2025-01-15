@@ -152,3 +152,13 @@ export const searchFlight = asyncHandler(async(req,res)=>{
         
     }
 })
+
+
+export const getRandomFlights = async (req, res) => {
+    try {
+      const randomFlights = await Flight.aggregate([{ $sample: { size: 10 } }]);
+      res.json(randomFlights);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };

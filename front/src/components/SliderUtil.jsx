@@ -16,7 +16,7 @@ const SliderUtil = ({ flight }) => {
   return (
     <Slider {...settings}>
       {flight?.map((flight) => (
-        <Flightss key={flight._id} flight={flight} />
+        <Flightss key={flight?._id} flight={flight} />
       ))}
     </Slider>
   );

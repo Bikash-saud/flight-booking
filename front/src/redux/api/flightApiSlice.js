@@ -49,8 +49,14 @@ const flightApiSlice = apiSlice.injectEndpoints({
                 method : "POST",
                 body : data
             })
+        }),
+        randomFlight : builder.query({
+            query : ()=>({
+                url : `${FLIGHT_URL}//random-flight`,
+                method : "GET"
+            })
         })
     })
 })
 
-export const {useUploadImageMutation,useCreateFlightMutation,useDeleteFlightMutation,useGetFlightByIdQuery,useGetFlightsQuery,useUpdateFlightMutation,useSearchMutation} = flightApiSlice
+export const {useRandomFlightQuery,useUploadImageMutation,useCreateFlightMutation,useDeleteFlightMutation,useGetFlightByIdQuery,useGetFlightsQuery,useUpdateFlightMutation,useSearchMutation} = flightApiSlice
