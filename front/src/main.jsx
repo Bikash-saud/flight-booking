@@ -18,13 +18,14 @@ import FlightDetail from './pages/admin/flight/FlightDetail.jsx'
 import AllFlight from './pages/admin/flight/AllFlights.jsx'
 import FlightUpdateDelete from './pages/admin/flight/FlightUpdateDelete.jsx'
 import AddPackages from './pages/admin/packages/AddPackages.jsx'
-import Packages from './pages/admin/packages/Packages.jsx'
+// import Packages from './pages/admin/packages/Packages.jsx'
 import PackageDetails from './pages/admin/packages/PackageDetails.jsx'
 import UpdateDeletePackage from './pages/admin/packages/UpdateDeletePackage.jsx'
 import AllPackages from './pages/admin/packages/AllPackages.jsx'
 import About from './components/About.jsx'
 import Help from './components/Help.jsx'
 import AddBooking from './pages/admin/Booking/AddBooking.jsx'
+import SearchPackage from './pages/admin/packages/SearchPackage.jsx'
 import UserBooking from './pages/admin/Booking/UserBooking.jsx'
 
 
@@ -37,7 +38,7 @@ const router = createBrowserRouter(
 <Route path='/' index={true} element={<Home/>}/>
 <Route path='/flights' element={<Flights/>}/>
 <Route path='/flight/:id' element={<FlightDetail/>}/>
-<Route path='/package' element={<Packages/>}/>
+<Route path='/package' element={<SearchPackage/>}/>
 <Route path='/package/:id' element={<PackageDetails/>}/>
 <Route path='/about' element={<About/>}/>
 <Route path='/contact' element={<Help/>}/>
@@ -46,7 +47,7 @@ const router = createBrowserRouter(
 
 <Route path='/profile' element={<Profile/>}/>
 <Route path='/addbooking' element={<AddBooking/>}/>
-{/* <Route path='/user-booking' element={<UserBooking/>}/> */}
+<Route path='/user-booking' element={<UserBooking/>}/>
 </Route>
 
 

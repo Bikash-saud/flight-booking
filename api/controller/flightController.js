@@ -42,7 +42,7 @@ export const createFlight = asyncHandler(async(req,res)=>{
 export const getFlights = asyncHandler(async(req,res)=>{
     try {
         const flights = await Flight.find().sort({createdAt : -1})
-        res.status(200).json({success : true, flights})
+        res.status(200).json(flights)
     } catch (error) {
         console.log(error);
         res.status(500).json({success : false, message : "Internal server error"})
@@ -54,7 +54,7 @@ export const getFligthById = asyncHandler(async(req,res)=>{
     try {
         const flight = await Flight.findById(req.params.id)
         if (flight) {
-            res.status(200).json({success : true, flight})
+            res.status(200).json(flight)
         }else{
             res.status(404)
             throw new Error("Flight not found")
@@ -65,6 +65,14 @@ export const getFligthById = asyncHandler(async(req,res)=>{
         
     }
 })
+// export const getRandomFlights = asyncHandler(async (req, res) => {
+//     try {
+//       const randomFlights = await Flight.aggregate([{ $sample: { size: 10 } }]);
+//       res.json(randomFlights);
+//     } catch (error) {
+//       res.status(500).json({ error: error.message });
+//     }
+//   });
 
 export const updateFlight = asyncHandler(async(req,res)=>{
     try {
@@ -135,9 +143,11 @@ export const deleteFlight = asyncHandler(async(req,res)=>{
 
 
 
+
 export const searchFlight = asyncHandler(async(req,res)=>{
     try {
         const {departure,arrival,departureTime,arrivalTime} = req.body;
+        
         const flight = await Flight.find({departure:departure,arrival:arrival,departureTime:departureTime,arrivalTime:arrivalTime})
         if (flight) {
             res.status(200).json(flight)
@@ -152,13 +162,3 @@ export const searchFlight = asyncHandler(async(req,res)=>{
         
     }
 })
-
-
-export const getRandomFlights = async (req, res) => {
-    try {
-      const randomFlights = await Flight.aggregate([{ $sample: { size: 10 } }]);
-      res.json(randomFlights);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };

@@ -6,11 +6,14 @@ const bookingSchema = new mongoose.Schema({
         ref : "User",
         required : true
     },
-    flight : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "Flight",
-
-    },
+  
+          flight: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "Flight",
+          },
+  
+  
     package : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "Package",

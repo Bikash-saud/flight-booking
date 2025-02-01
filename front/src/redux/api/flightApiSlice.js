@@ -50,13 +50,13 @@ const flightApiSlice = apiSlice.injectEndpoints({
                 body : data
             })
         }),
-        randomFlight : builder.query({
-            query : ()=>({
-                url : `${FLIGHT_URL}//random-flight`,
-                method : "GET"
-            })
-        })
+        // randomFlight : builder.query({
+        //     query : ()=>({
+        //         url : `${FLIGHT_URL}//random-flight`,
+        //         method : "GET"
+        //     })
+        // })
     })
 })
 
-export const {useRandomFlightQuery,useUploadImageMutation,useCreateFlightMutation,useDeleteFlightMutation,useGetFlightByIdQuery,useGetFlightsQuery,useUpdateFlightMutation,useSearchMutation} = flightApiSlice
+export const {useUploadImageMutation,useCreateFlightMutation,useDeleteFlightMutation,useGetFlightByIdQuery,useGetFlightsQuery,useUpdateFlightMutation,useSearchMutation} = flightApiSlice

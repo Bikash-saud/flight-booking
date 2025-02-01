@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {useCreateBookingMutation} from "../../../redux/api/bookingApiSlice"
+import{useGetFlightByIdQuery} from "../../../redux/api/flightApiSlice"
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 const AddBooking = () => {
+    const {data : flight} = useGetFlightByIdQuery()
     const[name, setName] = useState("")
     const[phone, setPhone] = useState("")
     const[email, setEmail] = useState("")
@@ -16,14 +18,14 @@ const AddBooking = () => {
     const[country, setCountry] = useState("")
     const[seatNumber, setSetNumber] = useState("")
     const[gender, setGender] = useState("")
-    // const[shippingAddress, setShippingAddress] = useState("")
+    const[flight1, setFlight] = useState(flight?._id)
     const[createBooking] = useCreateBookingMutation()
     const navigate = useNavigate()
 
     const submitHandler = async(e)=>{
         e.preventDefault()
         try {
-            const res = await createBooking({name,gender,age,seatNumber,luggage,meal,phone,email,bookingDate,address,city,postalCode,country}).unwrap()
+            const res = await createBooking({name,gender,age,seatNumber,luggage,meal,phone,email,bookingDate,address,city,postalCode,country,flight1:flight?._id}).unwrap()
             toast.success("Your form submited successfully")
             navigate("/")
         } catch (error) {
@@ -74,6 +76,16 @@ const AddBooking = () => {
                 <input type="text" name="text" id="text" placeholder="Enter your luggage"
                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value={luggage} onChange={(e)=>setLuggage(e.target.value)}/>
             </div>
+
+
+            <div className="mb-5">
+                <label htmlFor="luggage" className="mb-3 block text-base font-medium text-white">
+                    Flight
+                </label>
+                <input type="text" name="text" id="text" placeholder="Enter your luggage"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value={flight1} onChange={()=>setFlight(flight1)}/>
+            </div>
+
 
             <div className="mb-5">
                 <label htmlFor="email" className="mb-3 block text-base font-medium text-white">
@@ -153,6 +165,9 @@ const AddBooking = () => {
                     </div>
                 </div>
             </div>
+
+
+
 
             <div>
                 <button type='submit'

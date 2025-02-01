@@ -4,7 +4,7 @@ import { useGetPackagesQuery } from "../../../redux/api/packageApiSlice";
 // import AdminMenu from "./AdminMenu";
 
 const AllPackages = () => {
-  const { data , isLoading, isError } = useGetPackagesQuery();
+  const { data : packages , isLoading, isError } = useGetPackagesQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,10 +20,10 @@ const AllPackages = () => {
         <div className="flex flex-col  md:flex-row">
           <div className="p-3">
             <div className="ml-[2rem] text-xl font-bold h-12">
-              All Products ({data?.packages?.length})
+              All Products ({packages?.length})
             </div>
             <div className="flex flex-wrap justify-around items-center">
-              {data?.packages?.map((product) => (
+              {packages?.map((product) => (
                 <Link
                   key={product._id}
                   to={`/admin/flight/update/${product._id}`}

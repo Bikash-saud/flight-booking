@@ -1,6 +1,6 @@
 import express from "express"
 import { authenticate, authorizedAdmin } from "../middleware/authMiddleware.js"
-import { createFlight, deleteFlight, getFlights, getFligthById,getRandomFlights,searchFlight, updateFlight } from "../controller/flightController.js"
+import { createFlight, deleteFlight, getFlights, getFligthById,searchFlight, updateFlight } from "../controller/flightController.js"
 import formidable from "express-formidable"
 const router = express.Router()
 
@@ -10,5 +10,5 @@ router.route("/:id").get(authenticate, getFligthById)
 router.route("/:id").delete(authenticate,authorizedAdmin, deleteFlight)
 router.route("/:id").put(authenticate,authorizedAdmin, formidable(),updateFlight)
 router.route("/search").post(searchFlight)
-router.route("/random-flight").get(getRandomFlights)
+// router.route("/random-flight").get(getRandomFlights)
 export default router

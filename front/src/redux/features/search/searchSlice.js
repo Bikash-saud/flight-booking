@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     searchFilter : {
-        departure : "",
+        searchTerm: "",
         arrival : "",
         departureTime : "",
         arrivalTime : ""
     },
     filteredFlights: [],
+    selectedSort: [],
 }
 
 const searchSlice = createSlice({

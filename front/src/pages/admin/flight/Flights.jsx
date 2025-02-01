@@ -2,8 +2,8 @@ import React from 'react'
 import {useGetFlightsQuery} from "../../../redux/api/flightApiSlice"
 import { Link } from 'react-router';
 const Flights = () => {
-    const {data} = useGetFlightsQuery()
-    console.log(data);
+    const {data : flights} = useGetFlightsQuery()
+    // console.log(data);
     
   return (
     <>
@@ -11,7 +11,7 @@ const Flights = () => {
      <h1 className=' font-extrabold text-center mb-4 text-3xl'>Check Recents Flight</h1>
     <div className="  grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
         {
-            data?.flights?.map((f)=>(
+            flights?.map((f)=>(
 <div key={f._id}>
     <Link to={`/flight/${f._id}`}>
     <figure className="px-10 pt-10">

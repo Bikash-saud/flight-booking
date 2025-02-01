@@ -1,22 +1,30 @@
 import asyncHandler from "../middleware/asycnHandler.js";
 import Booking from "../models/bookingModel.js";
+import Flight from "../models/flightModel.js";
 
 export const createBooking = asyncHandler(async(req,res)=>{
    try {
-     const {name,age,gender,seatNumber,meal,luggage,passport,address,city,postalCode,country,email,phone,bookingDate} = req.body;
+     const {flight,name,age,gender,seatNumber,meal,luggage,passport,address,city,postalCode,country,email,phone,bookingDate} = req.body;
      if (!name || !age || !gender || !seatNumber   || !email || !phone) {
          res.status(400)
          throw new Error("Please fill all the fields")
      }
+     const flightExists = await Flight.findById(flight);
+     if (!flightExists) {
+         res.status(400);
+         throw new Error("Invalid flight ID");
+     }
+  
      const booking = await Booking.findById(req.params.id)
      if (booking) {
          res.status(400)
          throw new Error("Flight already booked.")
      }
+
+
      const newBooking = new Booking({
+         flight ,
         user : req.user._id,
-        //  flight : req.flight._id,
-        //  package : req.package._id,
         name,
         age,
         gender,
@@ -46,7 +54,7 @@ export const createBooking = asyncHandler(async(req,res)=>{
 
 export const getBookings = asyncHandler(async(req,res)=>{
     try {
-        const booking = await Booking.find({}).populate("flight", "airline").populate("package","name")
+        const booking = await Booking.find({}).populate("user", "name email").populate("package","name")
         res.status(200).json(booking)
         
     } catch (error) {
@@ -118,7 +126,7 @@ export const updateBooking = asyncHandler(async(req,res)=>{
 
 export const getUserBooking = asyncHandler(async(req,res)=>{
     try {
-        const booking = await Booking.find({user : req.user._id})
+        const booking = await Booking.find({user : req.user._id}).populate("user", "name email")
         res.status(200).json(booking)
         
     } catch (error) {

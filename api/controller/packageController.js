@@ -35,7 +35,7 @@ export const createPackage = asyncHandler(async(req,res)=>{
 export const getPackages = asyncHandler(async(req,res)=>{
     try {
         const packages = await Package.find().sort({createdAt : -1})
-        res.status(200).json({success : true, packages})
+        res.status(200).json(packages)
         
     } catch (error) {
         console.log(error);

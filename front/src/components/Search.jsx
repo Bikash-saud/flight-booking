@@ -1,83 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import {useGetFlightsQuery,useRandomFlightQuery} from "../redux/api/flightApiSlice"
-import {setFilteredFlight,setFlightFiltered} from "../redux/features/search/searchSlice"
-import MovieCard from '../pages/admin/flight/Flightss';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import {useGetFlightsQuery} from "../redux/api/flightApiSlice"
+import { Link } from 'react-router'
+// import MovieCard from '../pages/admin/flight/Flightss';
 const Search = () => {
- 
-  const dispatch = useDispatch()
-  const{data,isLoading,error} = useGetFlightsQuery()
-  const {data : randomflights} = useRandomFlightQuery()
-  const {searchFilter,filteredFlights} = useSelector(state=>state.flight)
-  useEffect(()=>{
-    dispatch(setFilteredFlight(data || []))
-  },[data, dispatch])
-  const handleSearch1 = async (e) => {
-    dispatch(setFlightFiltered({departure : e.target.value}))  
-    const filteredFlight = data.filter((flight) =>
-      flight.departure.toLowerCase().includes(e.target.value.toLowerCase())
-  );
-  dispatch(setFilteredFlight(filteredFlight))
+  const{data : flights} = useGetFlightsQuery()
+  // console.log(flights);
+  const[store, setStore] = useState(flights)
+  const[data1, setData1] = useState("")
+  const getData = (e) =>{
+    console.log(e.target.value);
+    setData1(e.target.value)
+}
+
+let filterOut = store?.filter((curValue)=>{
+  return curValue.departure.toLowerCase().includes(data1) || curValue.arrival.toLowerCase().includes(data1)
+})
+console.log(filterOut);
+
   
-  };
-
-  const handleSearch2 = async(e)=>{
-    dispatch(setFlightFiltered({arrival : e.target.value}))
-
-    const filteredFlight = data.filter((flight)=> flight.arrival.toLowerCase().includes(e.target.value.toLowerCase()))
-    dispatch(setFilteredFlight(filteredFlight()))
-  }
   return (
-    <div className="max-w-screen-md gap-3 mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">Search Flights</h2>
-      <div className=' flex justify-center items-center'>
-        <div className="mb-4 p-2">
-          <label className="block text-gray-700">Departure:</label>
-          <input
-            type="text"
-            value={searchFilter.departure}
-            onChange={handleSearch1}
-            className="w-full  border rounded-lg p-2 px-3"
-          />
-        </div>
-        <div className="mb-4 p-2">
-          <label className="block text-gray-700">Arrival:</label>
-          <input
-            type="text"
-            value={searchFilter.arrival}
-            onChange={handleSearch2}
-            className="w-full px-3 py-2 border rounded-lg"
-          />
-        </div>
-        {/* <div className="mb-4 p-2">
-          <label className="block text-gray-700">Departure Date:</label>
-          <input
-            type="date"
-            value={departureTime}
-            onChange={(e) => setDepartureTime(e.target.value)}
-            className="w-full px-7 py-2 border rounded-lg"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Arrival Date:</label>
-          <input
-            type="date"
-            value={arrivalTime}
-            onChange={(e) => setArrivalTime(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg"
-          />
-        </div> */}
-       
-        <button type="submit" className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600">
-          {isLoading ? 'Searching...' : 'Search'}
-        </button>
-      </div>
-      {error && <p className="text-red-500 mt-4">Error: {error.message}</p>}
-      {filteredFlights?.map((flight) => (
-              <MovieCard key={flight._id} flight={flight}/>
-            ))}
-
+    <div className=' '>
+      <h1 className=' text-center font-extrabold text-3xl mt-9 text-yellow-600'>Search Flights</h1>
+      <p></p>
+    <div className=' items-center justify-center text-center m-9 mb-20'>
+    <input
+    type="text"
+    placeholder="Type Departure or Arrival Airport"
+    className="w-[60%] h-[3rem] border px-10 outline-none rounded text-center"
+        onChange={getData}/>
+    
     </div>
-  );
-};
-export default Search;
+    <div className="  grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
+
+    {
+filterOut?.map((flight)=>(
+  <div key={flight?._id} className=' grid grid-cols-3'>
+     <Link to={`/flight/${flight._id}`}>
+<div className="card card-compact bg-base-100 w-96 shadow-xl" >
+  <figure>
+    <img
+      src={flight?.image}
+      alt="Shoes" />
+  </figure>
+  <div className="card-body">
+    <h2 className="card-title">{flight?.departure}</h2>
+    <p>If a dog chews shoes whose shoes does he choose?</p>
+    <div className="card-actions justify-end">
+      <Link to="/addbooking">
+      
+      <button className="btn btn-primary">Book Now</button>
+      </Link>
+    </div>
+  </div>
+</div>
+</Link>
+
+</div>
+))
+    }
+    </div>
+    </div>
+
+  )
+}
+
+export default Search

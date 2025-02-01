@@ -5,8 +5,8 @@ const router = express.Router()
 
 router.route("/").post(authenticate, createBooking)
 router.route("/").get(authenticate, authorizedAdmin, getBookings)
+router.route("/mine").get(authenticate,getUserBooking)
 router.route("/:id").get(authenticate,getBooking)
 router.route("/:id").delete(authenticate,deleteBooking)
 router.route("/:id").put(authenticate,updateBooking)
-router.route("/mine").get(authenticate,getUserBooking)
 export default router

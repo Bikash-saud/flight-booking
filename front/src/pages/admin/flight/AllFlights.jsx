@@ -4,7 +4,7 @@ import { useGetFlightsQuery } from "../../../redux/api/flightApiSlice";
 // import AdminMenu from "./AdminMenu";
 
 const AllFlight = () => {
-  const { data, isLoading, isError } = useGetFlightsQuery();
+  const { data : flights, isLoading, isError } = useGetFlightsQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,10 +20,10 @@ const AllFlight = () => {
         <div className="flex flex-col  md:flex-row">
           <div className="p-3">
             <div className="ml-[2rem] text-xl font-bold h-12">
-              All Products ({data?.flights?.length})
+              All Products ({flights?.length})
             </div>
             <div className="flex flex-wrap justify-around items-center">
-              {data?.flights?.map((product) => (
+              {flights?.map((product) => (
                 <Link
                   key={product._id}
                   to={`/admin/flight/update/${product._id}`}
