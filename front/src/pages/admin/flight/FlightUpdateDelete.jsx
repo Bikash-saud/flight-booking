@@ -292,7 +292,7 @@ const AdminFlightUpdate = () => {
             className="p-2 mb-3 bg-[#101011] border rounded-lg w-[95%] text-white"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-          ></input> */}
+          ></input>*/ }
 
               <div className="">
                 <button

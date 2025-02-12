@@ -39,8 +39,8 @@ export const createBooking = asyncHandler(async(req,res)=>{
         email,
         phone,
          bookingDate : bookingDate,
-        //  paymentMethod,
-        //  totalAmount,
+         paymentMethod,
+         totalAmount,
      })
      await newBooking.save()
      res.status(201).json(newBooking)

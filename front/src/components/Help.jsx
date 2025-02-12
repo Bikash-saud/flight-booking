@@ -10,7 +10,7 @@ const Help = () => {
             <div className='text-center h-48  flex flex-col items-center justify-center w-full'>
                 <BsPatchQuestion className='text-5xl text-primary' />
                 <h1 className='text-md lg:text-lg font-bold mb-1 '>General queries</h1>
-                <p className='text-2xl lg:text-3xl '><a href='callto:+880198564785'>+880198564785</a></p>
+                <p className='text-2xl lg:text-3xl '><a href='callto:+9779862475215'>+9779862475215</a></p>
             </div>
         </div>
 
@@ -18,7 +18,7 @@ const Help = () => {
             <div className='text-center h-48 w-full flex flex-col items-center justify-center'>
                 <BsChatDots className='text-5xl text-primary' />
                 <h1 className='text-md lg:text-lg font-bold mb-1 '>Live Chat</h1>
-                <p className='text-2xl lg:text-3xl'><a href='callto:+880198564785'>+88098564785</a></p>
+                <p className='text-2xl lg:text-3xl'><a href='callto:+9779862475215'>+9779862475215</a></p>
             </div>
         </div>
 
@@ -26,7 +26,7 @@ const Help = () => {
             <div className='text-center h-48 w-full flex flex-col items-center justify-center'>
                 <BiSupport className='text-5xl text-primary' />
                 <h1 className='text-md lg:text-lg font-bold mb-1'>Support Center</h1>
-                <p className='text-2xl lg:text-3xl '><a href='callto:+880198564785'>+880458564785</a></p>
+                <p className='text-2xl lg:text-3xl '><a href='callto:+9779862475215'>+9779862475215</a></p>
             </div>
         </div>
     </div>
